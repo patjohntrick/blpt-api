@@ -11,10 +11,10 @@ import { AppService } from './app.service';
       envFilePath: '.env.development',
     }),
     TypeOrmModule.forRoot({
-      type: 'mysql',
+      type: 'postgres',
       host: 'localhost',
-      port: 3310,
-      username: 'blptieees',
+      port: 5432,
+      username: 'root',
       password: 'blptieees321',
       database: 'blptieees',
       entities: [],
