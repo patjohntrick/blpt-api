@@ -1,0 +1,10 @@
+FROM mdillon/postgis
+
+ENV PG_MAJOR=10.4 \
+  POSTGIS_MAJOR=2.4 \
+  POSTGIS_VERSION=2.4.4 \
+  POSTGRES_DB=blptieees \
+  POSTGRES_USER=root \
+  POSTGRES_PASSWORD=blptieees321
+
+EXPOSE 5432
