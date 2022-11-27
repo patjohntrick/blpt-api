@@ -21,19 +21,23 @@ export class UserService {
 
   // Register user
   async register(userData: UserRegister) {
-    const { username, password } = userData;
-    // password
-    const hashPass = await bcrypt.hash(password, 3);
-    // validate username
+    const { username, password, confirmPassword, email } = userData;
     const user = await this.userRepository.findOneBy({
-      username: userData.username,
+      username,
     });
     if (user) {
       throw new HttpException('Username already exist', HttpStatus.BAD_REQUEST);
     }
+    if (user.password !== confirmPassword) {
+      throw new HttpException('Password should match', HttpStatus.BAD_REQUEST);
+    }
+    // password
+    const hashPass = await bcrypt.hash(password, 3);
+    // validate username
     const newUser = await this.userRepository.create({
       username,
       password: hashPass,
+      email,
     });
     return await this.userRepository.save(newUser);
   }

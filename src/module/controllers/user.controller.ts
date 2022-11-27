@@ -11,7 +11,7 @@ export class UserController {
     return this.userService.getUsers();
   }
 
-  @Post()
+  @Post('/register')
   register(@Body(new ValidationPipe()) userData: UserRegister) {
     return this.userService.register(userData);
   }
