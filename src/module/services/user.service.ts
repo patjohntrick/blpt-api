@@ -4,7 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
 
-import { UserRegister } from '../dtos/user.dto';
+import { UserRegisterDTO } from '../dtos/user.dto';
 import { User } from '../entities/user.entity';
 
 @Injectable()
@@ -20,7 +20,7 @@ export class UserService {
   }
 
   // Register user
-  async register(userData: UserRegister) {
+  async register(userData: UserRegisterDTO) {
     const { username, password, confirmPassword, email } = userData;
     const user = await this.userRepository.findOneBy({
       username,
@@ -28,7 +28,7 @@ export class UserService {
     if (user) {
       throw new HttpException('Username already exist', HttpStatus.BAD_REQUEST);
     }
-    if (user.password !== confirmPassword) {
+    if (password !== confirmPassword) {
       throw new HttpException('Password should match', HttpStatus.BAD_REQUEST);
     }
     // password
